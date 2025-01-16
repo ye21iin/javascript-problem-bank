@@ -9,7 +9,11 @@
  * @returns {any[]} 중복이 제거된 새 배열
  */
 function getUniqueElements(arr) {
-  // TODO: 중복을 제거한 새 배열을 반환하세요.
+  const newArr = [];
+  arr.forEach((e) => {
+    !newArr.includes(e) ? newArr.push(e) : "";
+  });
+  return newArr;
 }
 
 // export를 수정하지 마세요.
