@@ -15,7 +15,16 @@ const inventory = [
   { id: 200, name: "Mouse", stock: 5 },
 ];
 
-function addProduct(newItem) {}
+// newItem 포맷 : { id: 300, name: 'Monitor', stock: 2 }
+function addProduct(newItem) {
+  inventory.map((e) => {
+    if (e.id === newItem.id) {
+      e.stock += newItem.stock;
+    }
+  });
+  !inventory.filter((e) => e.id === newItem.id) ? (inventory += newItem) : "";
+  return;
+}
 
 // export를 수정하지 마세요.
 export { inventory, addProduct };
