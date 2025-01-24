@@ -17,14 +17,13 @@ const inventory = [
 
 // newItem 포맷 : { id: 300, name: 'Monitor', stock: 2 }
 function addProduct(newItem) {
-  inventory.map((e) => {
-    if (e.id === newItem.id) {
-      e.stock += newItem.stock;
-    }
-  });
-  !inventory.filter((e) => e.id === newItem.id) ? (inventory += newItem) : "";
-  return;
-}
+  const existingItem = inventory.find((item) => item.id === newItem.id);
 
+  if (!existingItem) {
+    inventory.push(newItem);
+  } else {
+    existingItem.stock += newItem.stock;
+  }
+}
 // export를 수정하지 마세요.
 export { inventory, addProduct };
