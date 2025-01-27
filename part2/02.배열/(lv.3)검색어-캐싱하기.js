@@ -16,12 +16,28 @@
 let topKeywordsCache = [];
 
 function updateTopKeywords(keywords) {
-  // TODO
+  topKeywordsCache = [];
+  if (!Array.isArray(keywords)) {
+    keywords = []; // 배열이 아닌 경우 빈 배열로 저장 e.g. undefined
+  }
+  const freq = {}; // element-frequency 저장용 객체
+  if (keywords)
+    for (const key of keywords) {
+      freq[key] = (freq[key] || 0) + 1; // 빈도 수 key-value 쌍 저장
+    }
+  const results = Object.entries(freq).sort((a, b) => {
+    return b[1] - a[1]; // 빈도수 기준 정렬
+  });
+  for (let i = 0; i < 10; i++) {
+    // 상위 10개만 캐시에 저장
+    if (typeof results[i] !== "undefined") {
+      topKeywordsCache.push(results[i][0]); // key값만 저장
+    }
+  }
 }
 
 function getTopKeywords() {
-  // TODO
-  return [];
+  return topKeywordsCache;
 }
 
 // export를 수정하지 마세요.
