@@ -10,7 +10,14 @@
  * @returns {any[][]}
  */
 
-function chunkArray(arr, size) {}
+function chunkArray(arr, size) {
+  const count = Math.ceil(arr.length / size); // 배열의 개수
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(arr.splice(0, size));
+  }
+  return result;
+}
 
 // export 를 수정하지 마세요.
 export { chunkArray };
