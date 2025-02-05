@@ -28,7 +28,18 @@
  */
 
 // TODO: groupBy 함수를 작성하세요.
-function groupBy(arr, key) {}
+function groupBy(arr, key) {
+  return arr.reduce((acc, obj) => {
+    // 배열을 하나씩 돌면서 객체 하나하나를 순회
+    const keyValue = obj[key]; // 변수에 주어진 키값을 할당
+    if (!acc[keyValue]) {
+      // 값이 없다면
+      acc[keyValue] = []; // 빈 배열로 반환
+    }
+    acc[keyValue].push(obj); // 누산기에 push
+    return acc;
+  }, {});
+}
 
 // export를 수정하지 마세요.
 export { groupBy };

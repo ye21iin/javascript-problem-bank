@@ -12,7 +12,12 @@
  * @returns {number}
  */
 
-function daysBetween(date1, date2) {}
+function daysBetween(date1, date2) {
+  const d1 = new Date(date1);
+  const d2 = new Date(date2);
+  const diffDays = Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
+  return Math.abs(diffDays); // 항상 양수로 반환
+}
 
 // export 를 수정하지 마세요.
 export { daysBetween };
