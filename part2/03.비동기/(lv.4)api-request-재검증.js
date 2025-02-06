@@ -10,7 +10,7 @@
  * 4) currentToken이 "valid"면 그대로 요청을 진행하세요.
  *
  * 전역 변수 currentToken은 "valid" 또는 "expired" 상태로 존재합니다.
- *
+ 
  * @param {string} endpoint - API 엔드포인트
  * @param {string} token - 토큰
  * @returns {Promise<string>}
@@ -33,6 +33,12 @@ async function fetch(endpoint, token) {
 async function apiRequest(endpoint, token = currentToken) {
   // TODO: currentToken이 "expired"이면 refreshToken() 후 재요청,
   //       currentToken이 "valid"면 바로 fetch
+  if (token === "expired") {
+    const newToken = await refreshToken();
+    return await fetch(endpoint, newToken);
+  } else if (token === "valid") {
+    return await fetch(endpoint, token);
+  }
 }
 
 // export를 수정하지 마세요.
