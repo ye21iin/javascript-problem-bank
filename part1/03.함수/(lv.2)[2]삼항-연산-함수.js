@@ -11,7 +11,6 @@
  */
 
 function checkAdult(age) {
-  // TODO
   return age >= 20 ? "adult" : "minor";
 }
 

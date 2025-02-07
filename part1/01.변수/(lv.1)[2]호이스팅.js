@@ -8,10 +8,11 @@
 
 function hoistingTest() {
   // TODO:
-  console.log(d);
+  console.log(d); // undefined - 호이스팅(변수명이 선언되었으나 값 할당은 x)
   var d = 5;
-  console.log(d);
+  console.log(d); // 5
 }
 
+hoistingTest(); // console.log() 확인용
 // export 를 수정하지 마세요.
 export { hoistingTest };
