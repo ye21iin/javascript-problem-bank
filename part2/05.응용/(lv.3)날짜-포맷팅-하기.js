@@ -10,7 +10,20 @@
  * @returns {string}
  */
 
-function formatDate(date) {}
+function formatDate(date) {
+  const dt = new Date(date);
+  const y = dt.getFullYear();
+  const month = dt.getMonth();
+  const dat = dt.getDate();
+  const hour = dt.getHours();
+  const minutes = dt.getMinutes();
+
+  const m = month + 1 < 10 ? "0" + (month + 1) : month + 1;
+  const d = dat < 10 ? "0" + dat : dat;
+  const h = hour < 10 ? "0" + hour : hour;
+  const mm = minutes < 10 ? "0" + minutes : minutes;
+  return `${y}년 ${m}월 ${d}일 ${h}시 ${mm}분`;
+}
 
 // export를 수정하지 마세요.
 export { formatDate };

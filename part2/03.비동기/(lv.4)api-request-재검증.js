@@ -26,20 +26,7 @@ async function refreshToken() {
   });
 }
 
-async function fetch(endpoint, token) {
-  return Promise.resolve(`fetched data from ${endpoint} with token ${token}`);
-}
-
-async function apiRequest(endpoint, token = currentToken) {
-  // TODO: currentToken이 "expired"이면 refreshToken() 후 재요청,
-  //       currentToken이 "valid"면 바로 fetch
-  if (token === "expired") {
-    const newToken = await refreshToken();
-    return await fetch(endpoint, newToken);
-  } else if (token === "valid") {
-    return await fetch(endpoint, token);
-  }
-}
+async function fetch(endpoint, token) {}
 
 // export를 수정하지 마세요.
 export { apiRequest };
