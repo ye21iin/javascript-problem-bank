@@ -27,7 +27,43 @@
  * @returns {(fn: () => Promise<any>) => Promise<any>}
  */
 
-function createRateLimiter(maxRequests, timeWindow) {}
+function createRateLimiter(maxRequests, timeWindow) {
+  const requestQueue = [];
+  const requestTimes = [];
+  let timeId = null,
+    timestamp = Date.now();
+
+  return (taskFn) =>
+    new Promise((resolve, reject) => {
+      requestQueue.push({ taskFn, resolve, reject });
+      processQueue();
+    });
+
+  function processQueue() {
+    if (requestQueue.length === 0) return;
+
+    while (requestTimes.length !== 0 && requestTimes[0] < timestamp)
+      requestTimes.shift();
+
+    if (requestTimes.length < maxRequests) {
+      const { taskFn, resolve, reject } = requestQueue.shift();
+      requestTimes.push(timestamp);
+
+      const response = taskFn();
+      Promise.resolve(response)
+        .then(resolve)
+        .catch(reject)
+        .finally(processQueue);
+    } else {
+      if (timeId) return;
+      timeId = setTimeout(() => {
+        timeId = null;
+        timestamp = Date.now();
+        processQueue();
+      }, timeWindow);
+    }
+  }
+}
 
 // export 를 수정하지 마세요.
 export { createRateLimiter };
