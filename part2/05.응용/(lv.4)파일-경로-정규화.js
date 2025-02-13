@@ -11,8 +11,37 @@
  * @param {string} path
  * @returns {string}
  */
+function normalizePath(path) {
+  const parts = path.split("/");
+  const stack = [];
 
-function normalizePath(path) {}
+  for (const part of parts) {
+    if (part === "..") {
+      if (stack.length > 0) {
+        stack.pop();
+      }
+      continue;
+    }
+    if (part === "/" || part === "." || part == "") {
+      continue;
+    } else {
+      stack.push(part);
+    }
+  }
+
+  let normalizedPath = stack.length > 0 ? stack.join("/") : "/";
+
+  if (normalizedPath === "/") {
+    return normalizedPath;
+  }
+
+  normalizedPath =
+    [...path].shift() === "/" ? "/" + normalizedPath : normalizedPath;
+  normalizedPath =
+    [...path].pop() === "/" ? normalizedPath + "/" : normalizedPath;
+
+  return normalizedPath;
+}
 
 // export 를 수정하지 마세요.
 export { normalizePath };
